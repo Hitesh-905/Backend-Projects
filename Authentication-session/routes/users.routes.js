@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
 // ADD THE TRY...CATCH BLOCK HERE
 router.post("/signup", async (req, res) => {
   try {
-    // All your existing code goes inside the 'try'
+   
     const { name, email, password } = req.body;
     const [existingUser] = await db
       .select({ email: usersTable.email })
@@ -45,15 +45,49 @@ router.post("/signup", async (req, res) => {
       .json({ status: "success", data: { userId: user.id } });
 
   } catch (error) {
-    // This 'catch' block will stop the server from crashing
-    // and will show you the REAL error in your terminal.
+    
     console.error("SIGNUP ERROR:", error); 
     return res.status(500).json({ error: "Internal server error" });
   }
 });
 
-router.post("/login", (req, res) => {
-  res.status(200).json({ message: "Login endpoint (to be implemented)" });
-});
+router.post("/login", async (req, res) => {
+  try { 
+    const { email, password } = req.body;
+    const [existingUser] = await db
+      .select({
+        email: usersTable.email,
+        salt: usersTable.salt,
+        password: usersTable.password,
+      })
+      .from(usersTable)
+      .where((table) => eq(table.email, email));
 
+    if (!existingUser) {
+      return res
+        .status(404)
+        .json({ error: `entered email: ${email} does not exists` });
+    }
+
+    const salt = existingUser.salt;
+    const existingHashed = existingUser.password;
+
+    const newHash = createHmac("sha256", salt)
+      .update(password)
+      .digest("hex");
+
+    if (newHash !== existingHashed) {
+      return res
+        .status(400)
+        .json({ error: "Incorrect password, Please try again" });
+    } else {
+      
+      return res.status(200).json({ status: "success" }); // <-- CHANGED TO 200
+    }
+  } catch (error) { 
+    console.error(" LOGIN ERROR:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+    
 export default router;
