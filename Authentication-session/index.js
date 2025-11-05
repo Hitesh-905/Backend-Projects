@@ -1,7 +1,7 @@
 import express from 'express'
 import userRouter from './routes/users.routes.js'
 const app  = express()
-const PORT = process.env.PORT??3000;
+const PORT = process.env.PORT??8000;
 
 app.use(express.json())//in built middleware
 
