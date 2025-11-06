@@ -1,8 +1,9 @@
 import express from "express";
 import db from "../db/index.js";
-import { usersTable } from "../db/schema.js";
+import { usersTable ,userSession} from "../db/schema.js";
 import { eq } from "drizzle-orm";
 import { randomBytes, createHmac } from "crypto";
+
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -56,6 +57,7 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
     const [existingUser] = await db
       .select({
+        id:usersTable.id,
         email: usersTable.email,
         salt: usersTable.salt,
         password: usersTable.password,
@@ -81,8 +83,10 @@ router.post("/login", async (req, res) => {
         .status(400)
         .json({ error: "Incorrect password, Please try again" });
     } else {
-      
-      return res.status(200).json({ status: "success" }); // <-- CHANGED TO 200
+      const [session] = await db.insert(userSession).values({
+        userId:existingUser.id,
+      }).returning({id:userSession.id});
+      return res.status(200).json({ status: "success",sessionId : session.id });
     }
   } catch (error) { 
     console.error(" LOGIN ERROR:", error);
