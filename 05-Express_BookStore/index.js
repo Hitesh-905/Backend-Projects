@@ -1,6 +1,4 @@
-const { log } = require('node:console');
-const express = require('node:express');
-const { loadavg } = require('node:os');
+const express = require('express');
 const app = express()
 const PORT = 8000;
 
@@ -19,15 +17,15 @@ app.get('/books',(req,res)=>{
     res.json(books);
 });
 
-app.get('/books:id',(req,res)=>{
+app.get('/books/:id',(req,res)=>{
     const id = parseInt(req.params.id)
     const book = books.find((e)=>e.id===id)
 
     if(isNaN(id)){
-        return res.staus(400).json({error:`Please Input a id with number `})
+        return res.status(400).json({error:`Please Input a id with number `})
     }
     if(!book){
-        return res.staus(404).json({error:`The book with following id:${id} is not found`})
+        return res.status(404).json({error:`The book with following id:${id} is not found`})
     }
 
 
