@@ -2,7 +2,7 @@ const express = require('express');
 const app = express()
 const PORT = 8000;
 
-app.json(express.json())//middleware to parse the request body into json format
+app.use(express.json())//middleware to parse the request body into json format
 //In memory database
 const books = [
   { id: 1, title: 'Book One', author: 'Author One' },
@@ -27,10 +27,24 @@ app.get('/books/:id',(req,res)=>{
     if(!book){
         return res.status(404).json({error:`The book with following id:${id} is not found`})
     }
-
-
     return res.json(book);
 });
+
+app.post('/books',(req,res)=>{
+   const{title,author}= req.body
+   if(!title || title === ''){
+    return res.status(400).json({error:`Please input the title`})
+   }
+   if(!author || author === ''){
+    return res.status(400).json({error:`Please input the author`})
+   }
+    const id = books.length+1
+    const book = {id,title,author}
+    books.push(book);
+
+    return res.status(201).json({message:'Your book has been created successfully'})
+});
+
 
 
 app.listen(PORT,()=>{
