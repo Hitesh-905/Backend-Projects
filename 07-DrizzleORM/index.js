@@ -67,3 +67,11 @@ async function praticeCrudThree(){
         {name: 'Hitesh',email:'hitesh@gmail.com'}
     ])
 }
+
+//CRUD IV: UPDATE & SET.
+/*
+Query: Change the name of the user with email 'alice@example.com'- 
+UPDATE userTable
+SET NAME = 'Alice bhosale',email = 'alicebhosale@gmail.com'
+WHERE email= 'alice@example.com'
+*/
