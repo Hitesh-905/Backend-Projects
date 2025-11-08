@@ -53,3 +53,17 @@ INSERT INTO userTable (name,email)
 VALUES('sam',;sam@gmail.com),
       ('hitman','hitman@example.com'
 */
+
+async function praticeCrudThree(){
+    const singleUser = await db.insert(userTable)
+    .values({
+        name:'sam',
+        email:'sam@gmail.com'
+    }).returning();
+
+    const multipleUser = await db.insert(userTable)
+    .values([
+        {name: 'Hitesh',email:'hitesh@gmail.com'},
+        {name: 'Hitesh',email:'hitesh@gmail.com'}
+    ])
+}
