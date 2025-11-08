@@ -93,3 +93,9 @@ Query: Delete the user whose email is 'bob@example.com'
 DELETE FROM userTable
 WHERE email ='bob@example.com';
 */
+
+async function deleteUser(){
+    const deleteSingleUser = await db.delete(userTable)
+                                    .where(eq(userTable.email , 'bob@example,com'))
+                                    .returning();
+}
