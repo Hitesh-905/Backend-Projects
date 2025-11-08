@@ -86,3 +86,10 @@ async function userUpdate(){
                                     
                                 
 }
+
+//CRUD OPERATIONS V - DELETE OPERATION
+/*
+Query: Delete the user whose email is 'bob@example.com'
+DELETE FROM userTable
+WHERE email ='bob@example.com';
+*/
