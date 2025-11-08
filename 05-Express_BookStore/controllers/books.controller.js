@@ -5,8 +5,9 @@ const db = require('../db');
 exports.homePaage = function(req,res){
     res.end(`Welcome to My Book Store :)`)
 }
-exports.getAllBooks = function(req,res){
-     res.json(BOOKS);
+exports.getAllBooks = async function(req,res){
+     const books = await db.select().from(booksTable)
+     return res.json(books);
 }
 
 exports.getBookByID = function(req,res){
