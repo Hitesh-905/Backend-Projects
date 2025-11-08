@@ -40,4 +40,16 @@ async function practiceCrudTwo (){
         eq(userTable.name,'hitesh')
     )
 )
-}
+};
+
+//BASIC CRUD OPERATIONS PART 3
+/*
+Query 1: Insert a single new user
+INSERT INTO userTable (name,email)
+VALUES ('Ram','ram@gmail.com')
+
+Query 2: Insert multiple users at once
+INSERT INTO userTable (name,email)
+VALUES('sam',;sam@gmail.com),
+      ('hitman','hitman@example.com'
+*/
