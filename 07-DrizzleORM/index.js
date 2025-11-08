@@ -29,3 +29,15 @@ query 2 - select the user whos has name hitesh and email hitesh@example.com
 SELECT * FROM usersTable WHERE email = hitesh@example.com AND name = hitesh
 
 */
+async function practiceCrudTwo (){
+        const hitesh  = await db.select()
+        .from(userTable)
+        .where(eq(userTable.email,"hitesh@example.com" ))
+
+        const fullDetails = await db.select()
+        .from(userTable)
+        .where(and(eq(userTable.email,'hitesh@example.com'),
+        eq(userTable.name,'hitesh')
+    )
+)
+}
