@@ -98,4 +98,4 @@ async function deleteUser(){
     const deleteSingleUser = await db.delete(userTable)
                                     .where(eq(userTable.email , 'bob@example,com'))
                                     .returning();
-}
+};

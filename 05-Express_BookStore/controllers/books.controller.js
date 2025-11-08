@@ -1,4 +1,5 @@
-const {BOOKS} = require('../models/books.js')
+const booksTable = require('../models/book.model.js')
+const db = require('../db');
 
 
 exports.homePaage = function(req,res){
