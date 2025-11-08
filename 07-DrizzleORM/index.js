@@ -75,3 +75,14 @@ UPDATE userTable
 SET NAME = 'Alice bhosale',email = 'alicebhosale@gmail.com'
 WHERE email= 'alice@example.com'
 */
+
+async function userUpdate(){
+    const updateUser = await db.update(userTable)
+                                .set({name:'alice bhosale'})
+                                .where(eq(userTable.email,'alice@example.com'))
+                                .returning({
+                                    newName: userTable.email
+                                })
+                                    
+                                
+}
