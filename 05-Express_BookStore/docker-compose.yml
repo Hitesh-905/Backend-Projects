@@ -1,9 +1,16 @@
 services:
   postgres:
-    image: postgres:18.0
+    
+    image: postgres:16
     ports:
       - "5432:5432"
     environment:
       POSTGRES_DB: bookStore
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
+    
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+volumes:
+  postgres-db:
