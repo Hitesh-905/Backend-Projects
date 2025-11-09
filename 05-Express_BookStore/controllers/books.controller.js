@@ -7,6 +7,7 @@ exports.homePaage = function(req,res){
     res.end(`Welcome to My Book Store :)`)
 }
 exports.getAllBooks = async function(req,res){
+    
      const books = await db.select().from(booksTable)
      return res.json(books);
 }
