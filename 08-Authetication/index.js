@@ -13,7 +13,7 @@ app.post('/signup',(req,res)=>{
     if(EMAIL.has(email)){
         return res.status(400).json({error: `Email already exists`})
     }
-    const token  = "${Date.now()}"
+    const token  =`${Date.now()}`
     DIARY[token] = {name,email,password};
     EMAIL.add(email)
     res.status(201).json({message:`Success`,token})
@@ -31,8 +31,8 @@ app.post('/me',(req,res)=>{
 
     const entry = DIARY[token]
     res.status(200).json({data:entry})
-})
+});
 app.listen(PORT,()=>{
     console.log(`You are listening on PORT: ${PORT}`);
     
-})
+});
