@@ -1,0 +1,64 @@
+
+
+
+//select * from userstable
+cosnt user  = await db.select().from(userstable)
+
+//select name,email from userstable
+cosnt partialInfo = await db.select({
+    username:usertable.name,
+    userEmail:usertabel.email
+}).from(userstable)
+
+
+//select the user whose has a email hitesh@example.com
+select * from usertable where email = hiteshchoudhary@gmail.com
+const emailSpecific = await db.select().from(usertable)
+.where(eq(usertable.email,"hiteshchoudhary@gmail.com))
+
+// select the user who has name hitesh and email hitesh@example.com
+SELECT * from usertable where name = hitesh AND email  = hitesh@example.com
+const fullinfo =  await db.select().from(usertable)
+.where(and(eq(usertable.email,hiteshchoudhary@gmail.com),
+eq(username.name,"hitesh")
+)
+)
+
+
+// Insert a single new user
+INSERT INTO USERSTABLE(NAME,EMAIL) VALUES (HITESH,HITESH@GMAIL.COM)
+const singleuser = await db.insert(userstable).values({
+    name:hitesh,
+    email:hiteshChoudhary@gmail.com,
+}).returning()
+
+
+ //Insert multiple users at once
+INSERT INTO USERSTABLE (NAME,EMAIL)
+VALUES
+    ("HITESH","HITESH@GMAIL.COM)",
+    ("BHAVESH","BHAVESH@GMAIL.COM")
+const multipleUser = await db.insert(userstable).values([
+    {name:"hitesh",email:"hitesh@example.com"},
+    {name:"hitesh",email:"hitesh@example.com"}
+]
+)
+
+//Change the name of the user with email 'alice@example.com'- 
+UPDATE USERSTABLE 
+SET NAME = "HITESH123",EMAIL= HITES@GOOGLE.COM
+WHERE EMAIL = HITESH@EXAMPLE.COM
+
+const updateuser = await db.update(usertable)
+                    .set({name:hitesh123,email:hitesh@google.com})
+                    .where(eq(userstable.email,"hitesh@example.com))
+                    }.returning({
+
+                        useremail:usertable.email
+                    })
+
+// Delete the user whose email is 'bob@example.com'
+DELETE FROM USERTABLE WHERE EMAIL = HITESG@EXAMPLE.COM
+
+const deleteduser = await db.delete(usertable).where(eq(usertable.email,"hitesh@eample.com))
+        .returning()

@@ -1,0 +1,42 @@
+The Problem: You want to show a list of all post titles and the author's name. 
+The posts table only has the authorId, not the name. The users table has the name, but not the post title. 
+The data is split.
+
+
+SELECT 
+post.title,
+user.name,
+from posts
+INNER JOINT USERS ON posts.authorId = users.Id
+
+const information  =  await db.select({
+    poststitle:posts.title,
+    authorName:user.name
+}).from(posts).innerjoint(users,eq(posts.authorid,user.id))
+
+
+
+//left joint
+SELECT
+  users.name,
+  posts.title
+FROM users -- 'users' is the LEFT table
+LEFT JOIN posts ON users.id = posts.authorId;
+
+const leftjoin = await db.select({
+    postName:posts.title,
+    authorName:user.name
+}).from(user)
+.leftjoin(posts,eq(users.id, posts.authorId))
+
+
+SELECT * FROM users RIGHT JOIN posts ON users.id = posts.authorId;
+
+
+
+
+No problem at all. This is the most confusing part of JOINs. Let's put them side-by-side.
+The only difference is which table you decide is the "main" one.
+LEFT = The first table (in FROM) is the main one.
+RIGHT = The second table (in JOIN) is the main one.
+

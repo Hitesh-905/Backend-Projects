@@ -50,7 +50,7 @@ VALUES ('Ram','ram@gmail.com')
 
 Query 2: Insert multiple users at once
 INSERT INTO userTable (name,email)
-VALUES('sam',;sam@gmail.com),
+VALUES('sam',sam@gmail.com),
       ('hitman','hitman@example.com'
 */
 
