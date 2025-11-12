@@ -1,16 +1,29 @@
 const booksTable = require('../models/book.model.js')
 const db = require('../db');
 const {eq} = require('drizzle-orm')
+const { sql } = require("drizzle-orm");
 
 
 exports.homePaage = function(req,res){
     res.end(`Welcome to My Book Store :)`)
 }
-exports.getAllBooks = async function(req,res){
+exports.getAllBooks = async function(req, res) {
+    try {
+        const search = req.query.search;
+        let query = db.select().from(booksTable);
+        if (search) {
+            query = query.where(sql`to_tsvector('english', ${booksTable.title}) @@ to_tsquery('english', ${search})`);
+        }
     
-     const books = await db.select().from(booksTable)
-     return res.json(books);
-}
+        const books = await query;
+        return res.json(books);
+
+    } catch (error) {
+        console.error("Error fetching books:", error);
+        return res.status(500).json({ message: "Error fetching books" });
+    }
+};
+ 
 
 exports.getBookByID = async function(req,res){
      const id = req.params.id
