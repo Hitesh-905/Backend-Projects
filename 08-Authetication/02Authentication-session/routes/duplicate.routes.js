@@ -6,24 +6,25 @@ import { eq } from 'drizzle-orm';
 
 const router = express.Router();
 
-router.patch('/',async(req,res)=>{
-        const user = req.user
-    if(!user){
-        return res.status(401).json({error:'Your are not logged in'})
-    }
-    const {name} = req.body;
-    await db.update(usersTable).set({name}).where(eq(usersTable.id,user.id))
-    return res.json({status:'success'})
-})
 router.get('/', async function (req, res) {
-    const user = req.user
-   
-   if(!user){
+   const sessionID = req.headers['session-Id']
+   if(!sessionID){
     return res.status(404).json({error:`You are not logged in `})
    }
 
-  
-return res.json({user});
+   const [data] = await db.select({
+    id:userSession.id,
+    userId:userSession.userId,
+    name:usersTable.name,
+    email:usersTable.email,
+   }).from(userSession)
+   .rightJoin(usersTable,eq(usersTable.id,userSession.userId))
+   .where((table)=>eq(table.id,sessionID))
+
+   if(!data){
+    return res.status(404).json({error:`You are not logged in `})
+   }
+return res.json({data});
 });
 
 router.post('/signup', async (req, res) => {
