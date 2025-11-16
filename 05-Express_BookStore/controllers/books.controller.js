@@ -55,7 +55,7 @@ exports.createBook = async (req,res)=>{
    });
 
     return res.status(201).json({message:'Your book has been created successfully',id: result.id})
-};
+}
 
 exports.deleteBookByID = async function(req,res){
       const id = req.params.id
@@ -63,4 +63,4 @@ exports.deleteBookByID = async function(req,res){
      .returning()
 
     return res.status(201).json({messsge: 'Book successfully deleted'})
-};
+}
