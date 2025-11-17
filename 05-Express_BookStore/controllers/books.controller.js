@@ -62,5 +62,5 @@ exports.deleteBookByID = async function(req,res){
      const deleteBook = await db.delete(booksTable).where(eq(booksTable.id,id))
      .returning()
 
-    return res.status(201).json({messsge: 'Book successfully deleted'})
+    return res.status(200).json({messsge: 'Book successfully deleted'})
 }
