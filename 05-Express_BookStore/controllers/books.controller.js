@@ -2,7 +2,7 @@ const booksTable = require('../models/book.model.js')
 const authorsTable = require('../models/author.model.js')
 const db = require('../db');
 const {eq} = require('drizzle-orm')
-const { sql } = require("drizzle-orm");
+// const { sql } = require("drizzle-orm");
 
 
 exports.homePaage = function(req,res){
