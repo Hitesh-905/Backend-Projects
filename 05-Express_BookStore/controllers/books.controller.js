@@ -54,7 +54,7 @@ exports.createBook = async (req,res)=>{
     id: booksTable.id
    });
 
-    return res.status(201).json({message:'Your book has been created successfully',id: result.id})
+    // return res.status(201).json({message:'Your book has been created successfully',id: result.id})
 }
 
 exports.deleteBookByID = async function(req,res){
